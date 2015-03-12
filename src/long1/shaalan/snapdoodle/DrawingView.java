@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
@@ -123,6 +124,16 @@ public class DrawingView extends View
 	public void startNew(){
 	    drawCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
 	    invalidate();
+	}
+	
+	public void cameraChange(Bitmap b)
+	{
+	 //create a bitmapdrawable
+	 BitmapDrawable bitmapdrawable = new BitmapDrawable(getResources(),b);
+	 //set the view background to the drawable
+	 this.setBackground(bitmapdrawable);
+	 //invalidate();
+	 
 	}
   
 

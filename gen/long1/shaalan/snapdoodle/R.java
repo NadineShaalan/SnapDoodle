@@ -35,12 +35,13 @@ public final class R {
         public static final int large=0x7f020005;
         public static final int medium=0x7f020006;
         public static final int new_pic=0x7f020007;
-        public static final int paint=0x7f020008;
-        public static final int paint_pressed=0x7f020009;
-        public static final int painter=0x7f02000a;
-        public static final int save=0x7f02000b;
-        public static final int saveme=0x7f02000c;
-        public static final int small=0x7f02000d;
+        public static final int newphoto=0x7f020008;
+        public static final int paint=0x7f020009;
+        public static final int paint_pressed=0x7f02000a;
+        public static final int painter=0x7f02000b;
+        public static final int save=0x7f02000c;
+        public static final int saveme=0x7f02000d;
+        public static final int small=0x7f02000e;
     }
     public static final class id {
         public static final int action_settings=0x7f09000a;

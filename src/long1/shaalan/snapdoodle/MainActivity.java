@@ -1,19 +1,22 @@
 package long1.shaalan.snapdoodle;
 
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.app.Activity;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import java.util.UUID;
-import android.provider.MediaStore;
+
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
@@ -23,13 +26,15 @@ public class MainActivity extends Activity implements OnClickListener {
 	private DrawingView drawView;
 	private ImageButton currPaint, drawBtn, eraseBtn, newBtn, saveBtn, picBtn;
 	private float smallBrush, mediumBrush, largeBrush;
+	static final int REQUEST_IMAGE_CAPTURE = 1;
+
 	
 	//CAMERA THINGS
-	private static String logtag = "CameraApp3";
+	//private static String logtag = "CameraApp3";
     // tells us which camera to take a picture from
-    private static int TAKE_PICTURE = 1;
+    //private static int TAKE_PICTURE = 1;
     // empty variable to hold our image Uri once we store it
-    private Uri imageUri;
+  //  private Uri imageUri;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +72,37 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 		 // look for the button we set in the view
         picBtn = (ImageButton)findViewById(R.id.pic_btn);
-        // set a listener on the button
-        picBtn.setOnClickListener(cameraListener);
+        // set a listener on the button         
+      //image button for the camera button
+        picBtn.setOnClickListener(new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+        openCamera();
+        }
+        });
+	}
+	
+	//for the camara to be run 
+	public void openCamera()
+	{
+	//create a new intent object that runs the camera
+	//Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+	//use the intent to send it over
+	  // startActivityForResult(intent, 0);
+	   
+	   Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+	    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+	        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+	    } 
+	}
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) 
+	{
+	super.onActivityResult(requestCode, resultCode, data);
+	//create a bitmap, from the information inside the intent
+		Bitmap bp = (Bitmap) data.getExtras().get("data");
+	//send the bitmap over to the custom view 
+		drawView.cameraChange(bp);
 	}
 
 	@Override
